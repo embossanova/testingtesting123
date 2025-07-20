@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprint Analytics Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Sprint Analytics Dashboard</h1>
+            <p>Visualize sprint KPIs and team dynamics</p>
+        </header>
+
+        <!-- File Upload Section -->
+        <section class="upload-section">
+            <div class="upload-container">
+                <div class="upload-icon">📊</div>
+                <div class="upload-content">
+                    <label for="csvUpload" class="upload-label">Upload Sprint Data (CSV)</label>
+                    <input type="file" id="csvUpload" accept=".csv" class="file-input">
+                    <div class="upload-info">
+                        Expected columns: sprint, week, ticketId, ticketType, assignee, taskForce, epic, storyPoints, status, startDate, completedDate
+                    </div>
+                </div>
+            </div>
+            <div id="uploadStatus" class="upload-status"></div>
+        </section>
+
+        <!-- Filters Section -->
+        <section class="filters-section">
+            <h2>📋 Filters</h2>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label for="weekFilter">Week</label>
+                    <select id="weekFilter">
+                        <option value="">All Weeks</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="typeFilter">Ticket Type</label>
+                    <select id="typeFilter">
+                        <option value="">All Types</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="assigneeFilter">Assignee</label>
+                    <select id="assigneeFilter">
+                        <option value="">All Assignees</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="taskForceFilter">Task Force</label>
+                    <select id="taskForceFilter">
+                        <option value="">All Task Forces</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="epicFilter">Epic</label>
+                    <select id="epicFilter">
+                        <option value="">All Epics</option>
+                    </select>
+                </div>
+            </div>
+            <button id="clearFilters" class="clear-btn">Clear All Filters</button>
+        </section>
+
+        <!-- Summary Statistics -->
+        <section class="summary-section">
+            <h2>📈 Sprint Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-card stat-blue">
+                    <div class="stat-number" id="completedTickets">0</div>
+                    <div class="stat-label">Completed Tickets</div>
+                </div>
+                <div class="stat-card stat-green">
+                    <div class="stat-number" id="totalPoints">0</div>
+                    <div class="stat-label">Total Story Points</div>
+                </div>
+                <div class="stat-card stat-orange">
+                    <div class="stat-number" id="activeDevelopers">0</div>
+                    <div class="stat-label">Active Developers</div>
+                </div>
+                <div class="stat-card stat-purple">
+                    <div class="stat-number" id="totalSprints">0</div>
+                    <div class="stat-label">Total Sprints</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="charts-grid">
+                <!-- Velocity Trends -->
+                <div class="chart-container">
+                    <h3>📊 Sprint Velocity Trends</h3>
+                    <canvas id="velocityChart"></canvas>
+                </div>
+
+                <!-- Team Workload -->
+                <div class="chart-container">
+                    <h3>👥 Team Workload Distribution</h3>
+                    <canvas id="teamChart"></canvas>
+                </div>
+
+                <!-- Ticket Types -->
+                <div class="chart-container">
+                    <h3>🎫 Ticket Type Distribution</h3>
+                    <canvas id="ticketTypeChart"></canvas>
+                </div>
+
+                <!-- Epic Progress -->
+                <div class="chart-container">
+                    <h3>🚀 Epic Progress</h3>
+                    <canvas id="epicChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            Sprint Analytics Dashboard MVP - Upload your CSV data to get started
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
